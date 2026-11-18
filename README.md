@@ -1,6 +1,6 @@
-# Online Examination and Assessment Management System (Backend)
+# Online Examination and Assessment Management System (Full-Stack)
 
-An enterprise-grade, secure, and production-ready RESTful backend application built for educational institutions to conduct, monitor, and evaluate examinations with strict server-side integrity, automatic objective grading, real-time proctoring with Socket.IO, and deep performance analytics using MongoDB aggregation pipelines.
+An enterprise-grade, secure, and production-ready full-stack application (Express + MongoDB backend & React + Vite frontend) built for educational institutions to conduct, monitor, and evaluate examinations with strict server-side integrity, automatic objective grading, real-time proctoring with Socket.IO, and deep performance analytics using MongoDB aggregation pipelines.
 
 ---
 
@@ -28,6 +28,7 @@ An enterprise-grade, secure, and production-ready RESTful backend application bu
 - **Validation:** `joi`
 - **Real-Time Communication:** `socket.io` 4.x
 - **Testing:** `jest`, `supertest`
+- **Frontend SPA:** React 19, Vite, Lucide Icons, Axios, Socket.IO Client
 
 ---
 
@@ -152,15 +153,19 @@ npm run seed
 | **Student 4** | `priya.sharma@student.edu` | `Student@123` | Section B |
 | **Student 5** | `aditya.nair@student.edu` | `Student@123` | IT Section A |
 
-### 5. Run the Server
+### 5. Run the Server & Frontend
 ```bash
-# Production mode:
+# Option A: Run Full-Stack unified server (Express serves API + built React SPA):
 npm start
+# Visit: http://localhost:5000 in your browser!
 
-# Development mode with nodemon:
+# Option B: Run in Development Mode with Hot Reload:
+# Terminal 1 (Backend API):
 npm run dev
+# Terminal 2 (Vite Frontend with HMR):
+npm run dev:frontend
+# Visit: http://localhost:3000
 ```
-The server will run on `http://localhost:5000/api/v1`.
 
 ### 6. Run the Automated Tests
 ```bash
