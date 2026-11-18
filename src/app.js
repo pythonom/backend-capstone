@@ -3,6 +3,8 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
+const path = require('path');
+const fs = require('fs');
 const config = require('./config/config');
 const routes = require('./routes/index.routes');
 const errorHandler = require('./middleware/errorHandler');
@@ -11,7 +13,11 @@ const ApiError = require('./utils/apiError');
 const app = express();
 
 // Security HTTP headers
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false // Allow inline scripts and assets for Vite SPA
+  })
+);
 
 // CORS configuration
 app.use(
@@ -30,8 +36,8 @@ if (config.env !== 'test') {
 
 // Global rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 1000, // 1000 requests per IP per window
+  windowMs: 15 * 60 * 1000,
+  max: 1000,
   standardHeaders: true,
   legacyHeaders: false,
   message: {
@@ -49,16 +55,27 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Base API route
 app.use('/api/v1', routes);
 
-// Root route
-app.get('/', (req, res) => {
-  res.status(200).json({
-    message: 'Welcome to Online Examination and Assessment Management System API',
-    version: '1.0.0',
-    documentation: '/api/v1/health'
+// Serve Frontend static assets if built
+const frontendDistPath = path.join(__dirname, '../frontend/dist');
+if (fs.existsSync(frontendDistPath)) {
+  app.use(express.static(frontendDistPath));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.join(frontendDistPath, 'index.html'));
   });
-});
+} else {
+  app.get('/', (req, res) => {
+    res.status(200).json({
+      message: 'Welcome to Online Examination and Assessment Management System API',
+      version: '1.0.0',
+      documentation: '/api/v1/health'
+    });
+  });
+}
 
-// 404 Handler for unknown routes
+// 404 Handler for unmatched API routes
 app.use((req, res, next) => {
   next(new ApiError(404, `Route ${req.originalUrl} not found on this server`));
 });
