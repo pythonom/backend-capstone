@@ -1,0 +1,57 @@
+const ROLES = Object.freeze({
+  ADMIN: 'admin',
+  FACULTY: 'faculty',
+  STUDENT: 'student'
+});
+
+const QUESTION_TYPES = Object.freeze({
+  MCQ: 'mcq',
+  DESCRIPTIVE: 'descriptive'
+});
+
+const DIFFICULTY_LEVELS = Object.freeze({
+  EASY: 'easy',
+  MEDIUM: 'medium',
+  HARD: 'hard'
+});
+
+const EXAM_STATUS = Object.freeze({
+  DRAFT: 'draft',
+  PUBLISHED: 'published',
+  ARCHIVED: 'archived'
+});
+
+const ATTEMPT_STATUS = Object.freeze({
+  IN_PROGRESS: 'in_progress',
+  SUBMITTED: 'submitted',
+  EVALUATED: 'evaluated',
+  EXPIRED: 'expired'
+});
+
+const AUDIT_ACTIONS = Object.freeze({
+  AUTH_LOGIN: 'AUTH_LOGIN',
+  AUTH_LOGOUT: 'AUTH_LOGOUT',
+  USER_CREATE: 'USER_CREATE',
+  GROUP_CREATE: 'GROUP_CREATE',
+  QUESTION_CREATE: 'QUESTION_CREATE',
+  QUESTION_UPDATE: 'QUESTION_UPDATE',
+  QUESTION_DELETE: 'QUESTION_DELETE',
+  EXAM_CREATE: 'EXAM_CREATE',
+  EXAM_UPDATE: 'EXAM_UPDATE',
+  EXAM_PUBLISH: 'EXAM_PUBLISH',
+  EXAM_DELETE: 'EXAM_DELETE',
+  ATTEMPT_START: 'ATTEMPT_START',
+  ATTEMPT_SUBMIT: 'ATTEMPT_SUBMIT',
+  ATTEMPT_AUTO_SUBMIT: 'ATTEMPT_AUTO_SUBMIT',
+  DESCRIPTIVE_EVALUATE: 'DESCRIPTIVE_EVALUATE',
+  RESULT_RELEASE: 'RESULT_RELEASE'
+});
+
+module.exports = {
+  ROLES,
+  QUESTION_TYPES,
+  DIFFICULTY_LEVELS,
+  EXAM_STATUS,
+  ATTEMPT_STATUS,
+  AUDIT_ACTIONS
+};
